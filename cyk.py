@@ -9,7 +9,7 @@ class grammar:
 		self.s=s
 
 	def cyk(self, s):
-		tabl = dict()
+		table = dict()
 		l = len(s)
 		for length in range(1,l+1): #get substrings in ascending order of length 
 			if length == 1: #strings of length 1, directly inspect the grammar
@@ -19,7 +19,7 @@ class grammar:
 					for key in self.p.keys():
 						if s[i] in self.p[key]:
 							vn.add(key)
-					tabl[index] = vn			
+					table[index] = vn			
 			elif length == 2: #strings of length 2
 				for i in range(l):
 					try:
@@ -39,19 +39,34 @@ class grammar:
 							for key in self.p.keys(): #inspect the grammar again
 								if target in self.p[key]: 
 									vn.add(key)
-							tabl[index] = vn
+							table[index] = vn
 					except IndexError: #end of string, we're all good
 						pass
 			else: #for strings longer than 2, we'll have to figure out where to look
 				for i in range(l): 
 					if i + length <= l: #generate every possible substring of greater length	
 						sub_string = s[i:i+length]
+						print(sub_string)
+						print("******")
+						index = (i,i+length-1)
+						vn = set()
 						sub_length = len(sub_string)
-						for div in range(1, sub_length):	#consider every possible bipartite cut of that substring
+						for div in range(sub_length):	#consider every possible bipartite cut of that substring
 							B = sub_string[:div]
+							if len(B) == 0: #it's treating a front-loaded lambda
+									#as a constituent, which I'll fix
+									#before this is said and done,
+									#but for now I just want this to
+									#work
+								continue
 							C = sub_string[div:]		
-							print(B + "||" + C)
-						#figure out which indices to consult
+							B_index = (i,i+div-1)
+							C_index = (i+div, i+length-1)
+							
+							
+
+													
+		print(table)					
 def main():
 	p = {'S':{'AB'}, 'A':{'BB','a'},'B':{'AB','b'}}
 	v = {'S','A','B'}	
