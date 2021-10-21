@@ -1,5 +1,4 @@
-
-
+import itertools
 
 class grammar:
 	def __init__(self,p,t,v,s):
@@ -46,8 +45,6 @@ class grammar:
 				for i in range(l): 
 					if i + length <= l: #generate every possible substring of greater length	
 						sub_string = s[i:i+length]
-						print(sub_string)
-						print("******")
 						index = (i,i+length-1)
 						vn = set()
 						sub_length = len(sub_string)
@@ -62,20 +59,36 @@ class grammar:
 							C = sub_string[div:]		
 							B_index = (i,i+div-1)
 							C_index = (i+div, i+length-1)
-							
-							
-
-													
-		print(table)					
+							try:
+								target_B = table[B_index]	
+								target_C = table[C_index]
+								print(B_index)
+								print(C_index)
+								targets_iter = itertools.product(target_B,target_C)
+								targets = []
+								for targ_tuple in targets_iter:
+									targets.append(targ_tuple[0] + targ_tuple[1])
+								print("=----\n" + str(targets) + "------=\n")
+								for target in targets:
+									for key in self.p.keys():
+										if target in self.p[key]:
+											vn.add(key)
+							except KeyError: #happens when particular substring has no derivation in the grammar, not sure how to handle
+								pass					
+						table[index] = vn
+		print(table)
+		print(str((0,l-1)))
+		return self.s in table[(0,l-1)]												
+			
 def main():
-	p = {'S':{'AB'}, 'A':{'BB','a'},'B':{'AB','b'}}
-	v = {'S','A','B'}	
-	t = {'a','b'}
+	p = {'S':{'AB'},'A':{'CD','CF'},'B':{'c','EB'},'C':{'a'},'D':{'b'},'E':{'c'},'F':{'AD'}}
+	v = {'S','A','B','C','D','E','F'}	
+	t = {'a','b','c'}
 	s = 'S'
 	g = grammar(p,t,v,s)
 
-	surface = "aabbb"
-	g.cyk(surface)
+	surface = "aaabbbcc"
+	print(g.cyk(surface))
 
 
 
