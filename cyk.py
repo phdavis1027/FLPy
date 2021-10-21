@@ -19,28 +19,30 @@ class grammar:
 						if s[i] in self.p[key]:
 							vn.add(key)
 					table[index] = vn			
-			elif length == 2: #strings of length 2
-				for i in range(l):
-					try:
-						B = s[i]
-						C = s[i+1]
-						index = (i, i+1)
-
-						vn = set()
-						for key in self.p.keys(): #look for the non-terminals that 
-							if B in self.p[key]:
-								B = key
-							if C in self.p[key]:
-								C = key
-						if B in self.v and C in self.v:
-							target = B + C
-
-							for key in self.p.keys(): #inspect the grammar again
-								if target in self.p[key]: 
-									vn.add(key)
-							table[index] = vn
-					except IndexError: #end of string, we're all good
-						pass
+#			elif length == 2: #strings of length 2
+#				for i in range(l):
+#					try:
+#						B = s[i]
+#						C = s[i+1]
+#						index = (i, i+1)
+#						print(str(index))
+#						print(B + C)
+#
+#						vn = set()
+#						for key in self.p.keys(): #look for the non-terminals that 
+#							if B in self.p[key]:
+#								B = key
+#
+#							if C in self.p[key]:
+#								C = key
+#							target = B + C
+#
+#							for key in self.p.keys(): #inspect the grammar again
+#								if target in self.p[key]: 
+#									vn.add(key)
+#							table[index] = vn
+#					except IndexError: #end of string, we're all good
+#						pass
 			else: #for strings longer than 2, we'll have to figure out where to look
 				for i in range(l): 
 					if i + length <= l: #generate every possible substring of greater length	
@@ -57,18 +59,17 @@ class grammar:
 									#work
 								continue
 							C = sub_string[div:]		
+
+							
 							B_index = (i,i+div-1)
 							C_index = (i+div, i+length-1)
 							try:
 								target_B = table[B_index]	
 								target_C = table[C_index]
-								print(B_index)
-								print(C_index)
 								targets_iter = itertools.product(target_B,target_C)
 								targets = []
 								for targ_tuple in targets_iter:
 									targets.append(targ_tuple[0] + targ_tuple[1])
-								print("=----\n" + str(targets) + "------=\n")
 								for target in targets:
 									for key in self.p.keys():
 										if target in self.p[key]:
@@ -87,7 +88,7 @@ def main():
 	s = 'S'
 	g = grammar(p,t,v,s)
 
-	surface = "aaabbbcc"
+	surface = "abc"
 	print(g.cyk(surface))
 
 
