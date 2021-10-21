@@ -44,9 +44,14 @@ class grammar:
 						pass
 			else: #for strings longer than 2, we'll have to figure out where to look
 				for i in range(l): 
-					if i + length <= l:	
+					if i + length <= l: #generate every possible substring of greater length	
 						sub_string = s[i:i+length]
-						print(sub_string)
+						sub_length = len(sub_string)
+						for div in range(1, sub_length):	#consider every possible bipartite cut of that substring
+							B = sub_string[:div]
+							C = sub_string[div:]		
+							print(B + "||" + C)
+						#figure out which indices to consult
 def main():
 	p = {'S':{'AB'}, 'A':{'BB','a'},'B':{'AB','b'}}
 	v = {'S','A','B'}	
@@ -56,6 +61,8 @@ def main():
 
 	surface = "aabbb"
 	g.cyk(surface)
+
+
 
 if __name__ == "__main__":
     main()
