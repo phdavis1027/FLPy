@@ -82,10 +82,10 @@ class grammar:
 		return self.s in table[(0,l-1)]												
 			
 def main():
-	p = {'S':{'AB'},'A':{'CD','CF'},'B':{'c','EB'},'C':{'a'},'D':{'b'},'E':{'c'},'F':{'AD'}}
-	v = {'S','A','B','C','D','E','F'}	
+	p = {"Q":{"AB", "SA", "CC"}, "S":{"AB", "SA","CC"}, "A":{"AA", "BC", "SB",'a'}, "B":{"BA","CS","BB", 'b'}, "C":{"CA", "BS", "c"}}
+	v = {"Q", "S","A","B","C"}	
 	t = {'a','b','c'}
-	s = 'S'
+	s = 'Q'
 	g = grammar(p,t,v,s)
 
 	surface = "abc"

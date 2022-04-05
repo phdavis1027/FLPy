@@ -1,0 +1,30 @@
+{
+  "name": "flpy",
+  "version": "1.0.0",
+  "description": "I just want to make a DFA program",
+  "main": "levenshtein.js",
+  "scripts": {
+    "test": "node levenshtein.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/phdavis1027/FLPy.git"
+  },
+  "keywords": [
+    "formal-language",
+    "levenshtein"
+  ],
+  "author": "Phillip Davis",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/phdavis1027/FLPy/issues"
+  },
+  "homepage": "https://github.com/phdavis1027/FLPy#readme",
+  "dependencies": {
+    "automata": "^3.0.4",
+    "automata.js": "^0.2.1",
+    "nfa": "^0.0.0",
+    "nfa-to-dfa": "^1.0.7",
+    "statemachines": "^0.1.1"
+  }
+}
