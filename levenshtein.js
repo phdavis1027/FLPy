@@ -2,11 +2,11 @@ const StateMachines = require("statemachines")
 
 const ALPH = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"];
 
-let wordToBoolVector = (x, w) => {
+const wordToBoolVector = (x, w) => {
 	return w.split("").map((c) => c === x)
 }
 
-let wholeWordProfile = (w) => {
+const wholeWordProfile = (w) => {
 	let curNum = 0;
 	let res = []
 	let seen = {}
@@ -20,15 +20,23 @@ let wholeWordProfile = (w) => {
 	return res
 }
 
-let intToState = (i, w) => {
+const isSubsumedBy = (p1, p2) => {
+	return p1.dist < p2.dist && Math.abs(p1.cons - p2.cons) <= p2.cons - p1.cons
+}
+
+const intToState = (i, w) => {
 	return {
 		cons :  i % (w.length + 1),
 		dist :  Math.floor(i / (w.length + 1))
 	}	
 }
 
-let stateToInt = (q, w) => {
+const stateToInt = (q, w) => {
 	return (w.length + 1) * q.dist + q.cons
+}
+
+const computeStateFromPosition = (q) => {
+	
 }
 
 function levenshtein(w, n){
