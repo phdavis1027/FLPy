@@ -35,8 +35,23 @@ const stateToInt = (q, w) => {
 	return (w.length + 1) * q.dist + q.cons
 }
 
-const computeStateFromPosition = (q) => {
-	
+const computeK(w, n, pos) => {
+	return Math.min(n - pos.dist + 1, w.length - pos.cons)
+}
+
+
+const computeAllCharacteristicVectors = (w, n) => {
+	vectors = {}
+	subwords = computeRelevantSubwords()
+}
+
+const computeRelevantSubwords = (w, n) => {
+	subwords = {}
+	let k = Math.min(2 * n + 1, w.length - 1)
+	// first compute relevant subwords with edit distance 0
+	for (let i = 0; i < w.length - 1; i++){
+		subwords[i] = w.substring(i + 1, k)
+	}
 }
 
 function levenshtein(w, n){
