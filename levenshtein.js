@@ -135,28 +135,40 @@ function pathToInt(w, stateRegistry){
 
 function trie(dict){
 
-	let stateTicket = 1
+	let stateTicket = 1 // we don't start at 0 because zero is always the entry point
 	let stateRegistry = {}
 
 	let table = []
 	let accepts = []
 	
 	dict.forEach((w)=>{
-		let transitions = {}
+		let curState = 0;
 		for (let i = 0; i < w.length - 1; ++i){
+			let transitions = {}
 			let prefix = w.substring(0, i + 1)
 			// look at state i
 			// look at state i + 1
 
-			if (! table[i][i + 1]){
+			if (! stateRegistry[prefix]){
 				stateRegistry[prefix] = stateTicket++;
 			}
 			// do we already have an edge (i, i + 1)?
+						
 				// if not, table[i][i + 1] = pathToInt(w.substring(0, i + 1))
 				// if so, current state = table[i][i + 1]
-			if (i = w.length - 1)
-				accepts.push(stateRegistry[w])
+			transitions[curState][w.charAt(i + 1)] = stageRegistry[prefix]
+			curState = stateRegistry[prefix];
 		}
+
+		if (! stateRegistry[w])
+			stateRegistry[w] = stateTicket++; 
+		
+		transitions[
+			stateRegistry[w.substring(0, w.length - 1)]
+		][
+			stateRegistry[w]
+		] = w.charAt(w.length - 1)
+		accepts.push(stateRegistry[w])
 	})
 
 }
