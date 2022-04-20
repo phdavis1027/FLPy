@@ -35,7 +35,7 @@ const stateToInt = (q, w) => {
 	return (w.length + 1) * q.dist + q.cons
 }
 
-const computeK(w, n, pos) => {
+const computeK = (w, n, pos) => {
 	return Math.min(n - pos.dist + 1, w.length - pos.cons)
 }
 
@@ -127,6 +127,38 @@ function levenshtein(w, n){
 
 
 	return new StateMachines.Nondeterministic(table, accepts).subset()
+}
+
+function pathToInt(w, stateRegistry){
+	return stateRegistry[w]
+}
+
+function trie(dict){
+
+	let stateTicket = 1
+	let stateRegistry = {}
+
+	let table = []
+	let accepts = []
+	
+	dict.forEach((w)=>{
+		let transitions = {}
+		for (let i = 0; i < w.length - 1; ++i){
+			let prefix = w.substring(0, i + 1)
+			// look at state i
+			// look at state i + 1
+
+			if (! table[i][i + 1]){
+				stateRegistry[prefix] = stateTicket++;
+			}
+			// do we already have an edge (i, i + 1)?
+				// if not, table[i][i + 1] = pathToInt(w.substring(0, i + 1))
+				// if so, current state = table[i][i + 1]
+			if (i = w.length - 1)
+				accepts.push(stateRegistry[w])
+		}
+	})
+
 }
 
 console.log(wholeWordProfile("aachen"))
